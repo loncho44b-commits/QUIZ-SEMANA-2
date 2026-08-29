@@ -40,7 +40,7 @@ Sumé el número de empleados de todas las empresas y dividí ese total entre la
 3. Asegurarse de estar dentro de la carpeta del proyecto.
 4. Ejecutar el comando:
 
-5. El programa lee automáticamente el archivo `empresas.txt` y muestra en consola:
+5. **El programa lee automáticamente el archivo `empresas.txt` y muestra en consola:**
    - Todas las empresas registradas (válidas)
    - El total de ingresos
    - Las empresas del sector TECNOLOGIA
