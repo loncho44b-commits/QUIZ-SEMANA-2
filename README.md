@@ -1,146 +1,48 @@
-# Quiz 1 — Fundamentos de Software 🧩
+# Quiz Semana 2 - Empresas
 
-¡Hora de poner en práctica lo aprendido! En este quiz vas a demostrar que dominas lo visto
-hasta ahora: **Programación Estructurada** (funciones y lectura de archivos de texto) y los
-fundamentos de **Programación Orientada a Objetos** (clase, objeto, constructor `__init__`,
-`self`, atributos, métodos y listas de objetos).
+## ¿Qué hice?
 
----
+De acuerdo con la base que el profesor nos entregó, inicié a desarrollar cada una de las partes marcadas como `TODO` dentro del código. A continuación explico paso a paso lo que fui completando en cada sección.
 
-## 🎯 El reto
+### 1. Constructor de la clase Empresa (`__init__`)
 
-Una cámara de comercio necesita un pequeño programa para analizar la información de varias
-**empresas**. Cada empresa tiene estos datos:
+Dentro del constructor guardé cada dato recibido como un atributo del objeto usando `self`. Para `num_empleados` e `ingresos_anuales` los convertí con `int()`, ya que al leerlos desde el archivo `.txt` llegan como texto (string) y no se pueden usar en operaciones matemáticas si no se convierten primero.
 
-| Atributo           | Ejemplo        |
-|--------------------|----------------|
-| nombre             | TechNova       |
-| sector             | TECNOLOGIA     |
-| num_empleados      | 150            |
-| ingresos_anuales   | 500000000      |
+### 2. Método obtener_informacion()
 
-Los registros están en el archivo **`empresas.txt`** (una empresa por línea):
+Completé el `return` con un f-string que arma un texto legible mostrando el nombre, sector, número de empleados e ingresos de la empresa, por ejemplo:
+`TechNova | TECNOLOGIA | 150 empleados | $500000000`
 
-```
-TechNova,TECNOLOGIA,150,500000000
-CasaBella,HOGAR,45,120000000
-...
-```
+### 3. Función leer_empresas()
 
-> ⚠️ **Ojo:** hay un registro "trampa" con `num_empleados` inválido (negativo). Tu programa
-> debe **ignorar** las empresas con `num_empleados` menor o igual a 0 al leer el archivo.
+Agregué la validación solicitada: por cada línea del archivo, si `num_empleados` es mayor a 0, se crea un objeto `Empresa` con esos datos y se agrega a la lista `empresas`. Si es 0 o negativo, la línea se ignora (por eso `EmpresaFantasma`, que tiene -5 empleados, no aparece en los resultados finales).
 
----
+### 4. Función calcular_total_ingresos()
 
-## 🛠️ Qué debes implementar
+Recorrí la lista de empresas con un `for` y fui sumando el atributo `ingresos_anuales` de cada una en una variable `total`, que al final se retorna.
 
-Abre el archivo **`quiz_empresas.py`** y completa **todos los bloques marcados con `# TODO`**.
-No necesitas crear nada desde cero: la estructura ya está, solo te falta la lógica.
+### 5. Función filtrar_por_sector()
 
-### La clase `Empresa`
-1. **`__init__(self, nombre, sector, num_empleados, ingresos_anuales)`** — guarda cada dato como
-   atributo del objeto (`self.nombre = nombre`, etc.). Convierte `num_empleados` e
-   `ingresos_anuales` a número con `int()`.
-2. **`obtener_informacion(self)`** — devuelve un texto legible, por ejemplo:
-   `TechNova | TECNOLOGIA | 150 empleados | $500000000`.
+Creé una lista vacía y recorrí todas las empresas comparando su atributo `sector` con el sector recibido como parámetro. Si coinciden, la empresa se agrega a esa nueva lista, que es la que se retorna al final.
 
-### Las funciones
-3. **`leer_empresas(nombre_archivo)`** — lee el archivo y devuelve una **lista de objetos
-   `Empresa`** (ignorando los registros inválidos).
-4. **`calcular_total_ingresos(empresas)`** — devuelve la suma de los ingresos de todas las empresas.
-5. **`filtrar_por_sector(empresas, sector)`** — devuelve una lista solo con las empresas de ese sector.
-6. **`empresa_con_mas_empleados(empresas)`** — devuelve el objeto `Empresa` con más empleados.
-7. **`promedio_empleados(empresas)`** — devuelve el promedio de empleados (cuidado con dividir entre cero).
+### 6. Función empresa_con_mas_empleados()
 
----
+Primero valido que la lista no esté vacía (si lo está, retorno `None`). Luego tomo la primera empresa como punto de partida y voy comparando: si encuentro una con más empleados, la guardo como la nueva "mejor". Al final del recorrido queda la empresa con más empleados.
 
-## ✅ Salida esperada
+### 7. Función promedio_empleados()
 
-Cuando completes todo y ejecutes `python quiz_empresas.py`, deberías ver algo así
-(el registro inválido `EmpresaFantasma` **no** aparece):
+Sumé el número de empleados de todas las empresas y dividí ese total entre la cantidad de empresas en la lista. También validé que si la lista está vacía, se retorne 0 para evitar un error de división entre cero.
 
-```
---- Empresas registradas ---
-TechNova | TECNOLOGIA | 150 empleados | $500000000
-CasaBella | HOGAR | 45 empleados | $120000000
-JugueLandia | JUGUETERIA | 30 empleados | $80000000
-DataCorp | TECNOLOGIA | 320 empleados | $1200000000
-MueblesSur | HOGAR | 80 empleados | $210000000
-ElectroMax | TECNOLOGIA | 210 empleados | $750000000
-ToyWorld | JUGUETERIA | 60 empleados | $150000000
+## Cómo ejecutar el programa
 
-Total de ingresos: 3010000000
+1. Abrir la carpeta del proyecto en Visual Studio Code.
+2. Abrir una terminal (Terminal > New Terminal).
+3. Asegurarse de estar dentro de la carpeta del proyecto.
+4. Ejecutar el comando:
 
---- Empresas del sector TECNOLOGIA ---
-TechNova | TECNOLOGIA | 150 empleados | $500000000
-DataCorp | TECNOLOGIA | 320 empleados | $1200000000
-ElectroMax | TECNOLOGIA | 210 empleados | $750000000
-
-Empresa con mas empleados: DataCorp | TECNOLOGIA | 320 empleados | $1200000000
-
-Promedio de empleados: 127.86
-```
-
----
-
-## 📤 ¿Cómo entregar?
-
-> 🎯 **La entrega es un repositorio PÚBLICO en GitHub.** No tienes que agregarme como
-> colaborador ni subir archivos a Canvas: en Canvas solo pegas el **enlace** de tu repo.
-
-### Paso 1 — Descarga el quiz
-Clona el repositorio del curso y entra a la carpeta del quiz:
-
-```bash
-git clone https://github.com/SimonP8/FUNDAMENTOS-DE-SOFTWARE.git
-cd "FUNDAMENTOS-DE-SOFTWARE/MisProyectosPython/Quiz_semana 2"
-```
-
-> 💡 También puedes hacerlo desde **VS Code**: pestaña *Source Control* → *Clone Repository*.
-
-### Paso 2 — Resuelve
-Completa los `# TODO` en `quiz_empresas.py` y ejecútalo hasta que la salida coincida con la
-esperada. Documenta tu código con comentarios y docstrings.
-
-### Paso 3 — Crea TU repositorio público
-En GitHub crea un repositorio **nuevo** llamado **`quiz_semana2`** y marca la opción
-**Public** (público). No agregues README ni .gitignore desde GitHub, para evitar conflictos.
-
-Luego, desde la carpeta con tu solución:
-
-```bash
-git init
-git add quiz_empresas.py empresas.txt
-git commit -m "Quiz Semana 2 resuelto"
-git branch -M main
-git remote add origin https://github.com/TU_USUARIO/quiz_semana2.git
-git push -u origin main
-```
-
-> 💡 En VS Code: *Source Control* → **Publish to GitHub** → elige **Public repository**.
-
-### Paso 4 — Verifica que sea público
-Abre el enlace de tu repositorio en una **ventana de incógnito**. Si el código se ve sin
-iniciar sesión, está público y listo para calificar. Si pide contraseña o dice *404*, aún
-está privado: ve a **Settings → General → Danger Zone → Change visibility → Make public**.
-
-### Paso 5 — Entrega en Canvas
-En la tarea de Canvas pega el **enlace de tu repositorio público**, por ejemplo:
-
-```
-https://github.com/TU_USUARIO/quiz_semana2
-```
-
-Eso es todo: **el enlace es la entrega**.
-
----
-
-## 📊 ¿Qué se evalúa?
-
-- [ ] El **constructor** guarda correctamente los atributos (con `int()` donde corresponde).
-- [ ] `leer_empresas` crea una **lista de objetos** e **ignora** el registro inválido.
-- [ ] Las **funciones** devuelven los resultados correctos.
-- [ ] El método `obtener_informacion` muestra los datos de forma clara.
-- [ ] El código tiene **comentarios y docstrings** que explican tu solución.
-
-¡Mucho éxito! Recuerda: ve de a un `# TODO` a la vez. 💪
+5. El programa lee automáticamente el archivo `empresas.txt` y muestra en consola:
+   - Todas las empresas registradas (válidas)
+   - El total de ingresos
+   - Las empresas del sector TECNOLOGIA
+   - La empresa con más empleados
+   - El promedio de empleados
